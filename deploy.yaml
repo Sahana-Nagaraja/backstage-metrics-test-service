@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backstage-metrics-test-service
+  labels:
+    app: backstage-metrics-test-service
+    backstage.io/kubernetes-id: backstage-metrics-test-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backstage-metrics-test-service
+  template:
+    metadata:
+      labels:
+        app: backstage-metrics-test-service
+        backstage.io/kubernetes-id: backstage-metrics-test-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/actuator/prometheus"
+    spec:
+      containers:
+        - name: backstage-metrics-test-service
+          image: sahanan05/backstage-metrics-test-service:latest
+          ports:
+            - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backstage-metrics-test-service
+  labels:
+    app: backstage-metrics-test-service
+    backstage.io/kubernetes-id: backstage-metrics-test-service
+spec:
+  ports:
+    - protocol: TCP
+      name: http-traffic
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: backstage-metrics-test-service
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backstage-metrics-test-service-service-monitor
+  labels:
+    release: prometheus-operator
+spec:
+  selector:
+    matchLabels:
+      app: backstage-metrics-test-service
+  endpoints:
+    - port: http-traffic
+      path: "/actuator/prometheus"

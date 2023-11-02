@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "backstage-metrics-test-service"
+  description: "This is to test spring boot template"
+  annotations:
+    github.com/project-slug: Sahana-Nagaraja/backstage-metrics-test-service
+    backstage.io/techdocs-ref: dir:.
+    gocd.org/pipelines: backstage-metrics-test-service
+    backstage.io/kubernetes-id: backstage-metrics-test-service
+    grafana/dashboard-selector: backstage-metrics-test-service
+    grafana/overview-dashboard: http://localhost:3000/d/d34be2fd-c8ec-4573-89bf-ad564b3a3271/jvm-micrometer?orgId=1
+    sonarqube.org/project-key: backstage-metrics-test-service
+    newrelic.com/dashboard-guid: NDIyMDQwOHxWSVp8REFTSEJPQVJEfGRhOjQ1MzQ3ODk
+spec:
+  type: service
+  providesApis:
+    - "backstage-metrics-test-service"
+  lifecycle: experimental
+  owner: "group:default/guests"

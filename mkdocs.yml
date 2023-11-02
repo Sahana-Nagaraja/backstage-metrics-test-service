@@ -1,0 +1,10 @@
+site_name: "backstage-metrics-test-service"
+site_description: "This is to test spring boot template"
+
+nav:
+  - Introduction: index.md
+  - Page 1: page1.md
+  - Page 2: page2.md
+
+plugins:
+  - techdocs-core
