@@ -1,5 +1,5 @@
 site_name: "backstage-metrics-test-service"
-site_description: "This is to test spring boot template"
+site_description: "This is to test the spring boot template"
 
 nav:
   - Introduction: index.md
